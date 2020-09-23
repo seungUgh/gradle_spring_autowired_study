@@ -1,17 +1,19 @@
 package gradle_spring_autowired_study.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class MemberInfoPrinter {
-//	private MemberDao memDao;
-//	private MemberPrinter printer;
-	
-	@Autowired
 	private MemberDao memDao;
-	@Autowired
 	private MemberPrinter printer;
+	//printer가 없어도 필드나 세터 메서드에 붙이면 
+//	MemberPrinter타입을 찾아서(타입일치하는 빈객체)넣어준다.(스프링이)
+	
+	
+//	@Autowired
+//	private MemberDao memDao;
+//	@Autowired
+//	private MemberPrinter printer;
 	
 	public void printMemberInfo(String email) {
 		Member member = memDao.selectByEmail(email);
@@ -24,11 +26,14 @@ public class MemberInfoPrinter {
 
 		
 	}
-
+	
+	@Autowired
 	public void setMemberDao(MemberDao memberDao) {
 		this.memDao = memberDao;
 	}
-
+	
+	@Autowired
+	@Qualifier("printer")
 	public void setPrinter(MemberPrinter printer) {
 		this.printer = printer;
 	}
